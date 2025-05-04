@@ -3,6 +3,7 @@
 <head>
     <title>FUHO569 - Thanks for adding my bot!</title>
     <meta property="og:title" content="FUHO569's Channel + Surprise">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,8 +11,14 @@
             background: #1a1a1a;
             color: white;
             padding: 50px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        #rickButton {
+        .action-button {
             background: #ff0000;
             color: white;
             border: none;
@@ -20,40 +27,60 @@
             border-radius: 50px;
             cursor: pointer;
             margin: 20px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .action-button:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+        #countdown {
+            display: none;
+            font-size: 1.2em;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Thanks for adding my bot! ❤️</h1>
-    
-    <!-- Primary content visible immediately -->
-    <div id="mainContent">
-        <p>Your browser blocked the automatic popup - no worries!</p>
-        <button id="channelButton" onclick="openChannel()">
-            🔥 Click to visit @FUHO569 on YouTube
-        </button>
-    </div>
+    <div class="container">
+        <h1>Thanks for adding my bot! ❤️</h1>
+        
+        <!-- Primary content visible immediately -->
+        <div id="mainContent">
+            <p>Enjoy some exclusive content while you're here!</p>
+            <button class="action-button" id="channelButton" onclick="openChannel()">
+                🔥 Visit @FUHO569 on YouTube
+            </button>
+        </div>
 
-    <!-- Hidden countdown (revealed after channel visit) -->
-    <div id="countdown" style="display: none;">
-        <p>Redirecting to something special in <span id="timer">3</span>...</p>
+        <!-- Hidden countdown (revealed after channel visit) -->
+        <div id="countdown">
+            <p>Preparing something special... <span id="timer">3</span></p>
+        </div>
     </div>
 
     <script>
         // Try to auto-open channel (may be blocked)
-        const channelWindow = window.open(
-            'https://youtube.com/@FUHO569?sub_confirmation=1',
-            '_blank',
-            'noopener,noreferrer'
-        );
-
-        // If popup was blocked, show the button
-        if (!channelWindow || channelWindow.closed) {
-            document.getElementById('channelButton').style.display = 'block';
-        } else {
-            startCountdown();
+        function tryOpenChannel() {
+            const channelWindow = window.open(
+                'https://youtube.com/@FUHO569?sub_confirmation=1',
+                '_blank',
+                'noopener,noreferrer'
+            );
+            
+            // Check if popup was blocked
+            if (!channelWindow || channelWindow.closed) {
+                document.getElementById('channelButton').style.display = 'inline-block';
+            } else {
+                startCountdown();
+                document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('countdown').style.display = 'block';
+            }
         }
 
+        // User-initiated channel open
         function openChannel() {
             window.open(
                 'https://youtube.com/@FUHO569?sub_confirmation=1',
@@ -65,6 +92,7 @@
             document.getElementById('countdown').style.display = 'block';
         }
 
+        // Countdown function
         function startCountdown() {
             let timeLeft = 3;
             const timer = document.getElementById('timer');
@@ -77,6 +105,11 @@
                 }
             }, 1000);
         }
+
+        // Initialize on page load
+        window.onload = function() {
+            tryOpenChannel();
+        };
     </script>
 </body>
 </html>
