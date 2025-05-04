@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FUHO569 - Thanks for adding my bot!</title>
+    <meta property="og:title" content="FUHO569's Channel + Surprise">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #1a1a1a;
+            color: white;
+            padding: 50px;
+        }
+        #rickButton {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thanks for adding my bot! ❤️</h1>
+    
+    <!-- Primary content visible immediately -->
+    <div id="mainContent">
+        <p>Your browser blocked the automatic popup - no worries!</p>
+        <button id="channelButton" onclick="openChannel()">
+            🔥 Click to visit @FUHO569 on YouTube
+        </button>
+    </div>
+
+    <!-- Hidden countdown (revealed after channel visit) -->
+    <div id="countdown" style="display: none;">
+        <p>Redirecting to something special in <span id="timer">3</span>...</p>
+    </div>
+
+    <script>
+        // Try to auto-open channel (may be blocked)
+        const channelWindow = window.open(
+            'https://youtube.com/@FUHO569?sub_confirmation=1',
+            '_blank',
+            'noopener,noreferrer'
+        );
+
+        // If popup was blocked, show the button
+        if (!channelWindow || channelWindow.closed) {
+            document.getElementById('channelButton').style.display = 'block';
+        } else {
+            startCountdown();
+        }
+
+        function openChannel() {
+            window.open(
+                'https://youtube.com/@FUHO569?sub_confirmation=1',
+                '_blank',
+                'noopener,noreferrer'
+            );
+            startCountdown();
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('countdown').style.display = 'block';
+        }
+
+        function startCountdown() {
+            let timeLeft = 3;
+            const timer = document.getElementById('timer');
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timer.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    window.location.href = "https://vandevsysX64.github.io/website/";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
